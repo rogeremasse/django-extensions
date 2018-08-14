@@ -8,6 +8,7 @@ import setuptools
 from distutils.command.install import INSTALL_SCHEMES
 from distutils.command.install_data import install_data
 from setuptools import setup
+from setup_helpers import get_version
 
 try:
     from setuptools.command.test import test as TestCommand
@@ -115,7 +116,7 @@ for dirpath, dirnames, filenames in os.walk(extensions_dir):
         package_files.extend([os.path.join(path, f) for f in filenames])
 
 
-version = __import__('django_extensions').__version__
+version = get_version() or __import__('django_extensions').__version__
 
 install_requires = ['six>=1.2']
 extras_require = {}

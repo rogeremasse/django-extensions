@@ -65,6 +65,7 @@ class ModelGraph(object):
         self.all_applications = kwargs.get('all_applications', False)
         self.use_subgraph = kwargs.get('group_models', False)
         self.verbose_names = kwargs.get('verbose_names', False)
+        self.table_names = kwargs.get('table_names', False)
         self.inheritance = kwargs.get('inheritance', True)
         self.relations_as_fields = kwargs.get("relations_as_fields", True)
         self.sort_fields = kwargs.get("sort_fields", True)
@@ -219,6 +220,8 @@ class ModelGraph(object):
         else:
             context['label'] = context['name']
 
+        if self.table_names and appmodel._meta.db_table:
+            context['label'] += " ({})".format(appmodel._meta.db_table)
         return context
 
     def get_bases_abstract_fields(self, c):
